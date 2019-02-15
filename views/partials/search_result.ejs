@@ -1,0 +1,12 @@
+<!-- Search Card -->
+<div class="container search-result">
+    <!-- Search form -->
+    <p>search result below</p>
+    <% for (var i = 0; i < addresses.length; i++){ %>
+        <p><%= addresses[i].title %></p>
+        <image src="<%= addresses[i].image %>"></image>
+        <p><%= addresses[i].description %></p>
+    <% } %>
+
+</div>
+
