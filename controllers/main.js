@@ -8,9 +8,7 @@ const user = {email: "test@test.com"};
 
 // module.exports.index = function(req, res)
 exports.index = function (req, res) {
-    // res.render('page/index', { user: user });
-    const addresses = randomAddress();
-    res.render('page/search', { user: user, addresses: addresses });
+    res.render('page/index', { user: user });
 };
 
 
