@@ -4,8 +4,9 @@ var ctrlMain = require("../controllers/main");
 /*
   * GET home page.
   */
-const user = {email: "test@gmail.com"};
 router.get('/', ctrlMain.index);
+
+router.post('/search', ctrlMain.search)
 
 module.exports = router;
 
