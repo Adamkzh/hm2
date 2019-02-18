@@ -6,12 +6,12 @@ faker.locale = "en_US";
 const user = {email: "test@test.com"};
 var randomAddresses = [];
 
-
 // Display index page on GET.
 exports.index = function (req, res) {
     if (randomAddresses.keys.length == 0) randomAddresses = getRandomAddress(20);
     res.render('page/index', { user: user, addresses: randomAddresses, isSearchResult: false});
 };
+
 
 
 // Handle Search Form on POST.
