@@ -1,11 +1,22 @@
 <!-- Search Card -->
 <div class="container search-result">
     <!-- Search form -->
-    <p>search result below</p>
-    <% for (var i = 0; i < addresses.length; i++){ %>
-        <p><%= addresses[i].title %></p>
-        <image src="<%= addresses[i].image %>"></image>
-        <p><%= addresses[i].description %></p>
+    <% if (isSearchResult) { %>
+    <h4>Search Result Below</h4>
+    <% } else { %>
+    <h4>All Available Addresses</h4>
+    <% } %>
+
+    <% if (addresses.length == 0) { %>
+    <p>No result found.</p>
+    <% } else { %>
+    <% addresses.forEach(function (address) { %>
+    <div class="address_card">
+    <p><%= address.address %> <%= address.zipcode %> </p>
+    <image src="<%= address.image %>"></image>
+    <p><%= address.description %></p>
+    </div>
+    <% }) %>
     <% } %>
 </div>
 

@@ -2,36 +2,73 @@ var faker = require('faker');
 
 var exports = module.exports = {};
 
+faker.locale = "en_US";
 const user = {email: "test@test.com"};
+var randomAddresses = [];
 
 
-
-// module.exports.index = function(req, res)
+// Display index page on GET.
 exports.index = function (req, res) {
-    res.render('page/index', { user: user });
+    if (randomAddresses.keys.length == 0) randomAddresses = getRandomAddress(20);
+    res.render('page/index', { user: user, addresses: randomAddresses, isSearchResult: false});
 };
 
 
+// Handle Search Form on POST.
 exports.search = function(req, res) {
-    var input_address = req.body.address;
-    const addresses = randomAddress();
-    console.log(addresses);
-    for (var i = 0; i < addresses.length; i++) {
-        console.log(addresses[i]);
-        console.log(typeof(addresses[i]));
-        console.log(addresses[i].title);
+    var address, zipcode;
+    if (req.body.address != null) {
+        address = req.body.address;
     }
-    // res.send(addresses);
+    if (req.body.zipcode != null) {
+        zipcode = req.body.zipcode;
+    }
+    // console.log("address:" + address + " zipcode:" + zipcode);
 
-    res.render('page/search', { user: user, addresses: addresses });
+
+    var matchingAddresses = randomAddresses;
+    if ((address !== null && address !== "") || (zipcode !== null && zipcode !== "")) {
+        matchingAddresses = searchAddresses(address, zipcode);
+    }
+    res.render('page/search', { user: user, addresses: matchingAddresses, isSearchResult: true });
 };
 
+function searchAddresses(address, zipcode) {
+    if (randomAddresses == null || randomAddresses.length == 0) {
+        randomAddresses = getRandomAddress(30);
+    }
 
-function randomAddress() {
+    var result = [];
+    if (address !== "" && zipcode !== "") {
+        randomAddresses.forEach(function (element) {
+            if (element.address.includes(address) && element.zipcode === zipcode) {
+                result.push(element);
+            }
+        });
+    } else if (address !== "") {
+        randomAddresses.forEach(function (element) {
+            if (element.address.includes(address)) {
+                result.push(element);
+            }
+        });
+
+    } else if (zipcode !== "") {
+        randomAddresses.forEach(function (element) {
+            if (element.zipcode === zipcode) {
+                result.push(element);
+            }
+        });
+    }
+    return result;
+}
+
+
+function getRandomAddress(num) {
     var addresses = new Array();
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < num; i++) {
         addresses.push({
-            title: faker.address.streetAddress(),
+            address: faker.address.streetAddress() + "," + faker.address.city() + ',' + faker.address.stateAbbr(),
+            zipcode: faker.address.zipCode(),
             image: faker.image.image(),
             description: faker.address.latitude() + ", " +faker.address.longitude()
         });

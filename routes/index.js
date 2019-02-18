@@ -1,14 +1,15 @@
 var express = require('express');
 var router = express.Router();
 var ctrlMain = require("../controllers/main");
-/*
-  * GET home page.
-  */
+
+// GET request to get index page.
 router.get('/', ctrlMain.index);
 
-router.post('/search', ctrlMain.search)
+// POST request to search addresses by keywords.
+router.post('/search', ctrlMain.search);
 
 module.exports = router;
+
 
 
 //
