@@ -6,13 +6,21 @@ body {
 .search-card {
   margin-top: 10px;
   float: left;
+<<<<<<< HEAD
   width: 400px;
+=======
+  width: 500px;
+>>>>>>> 2ae423e2ee6b06d3a93663639afc290b2dfcf384
 }
 
 .search-result {
   float: right;
   margin-top: 10px;
+<<<<<<< HEAD
   width: 650px;
+=======
+  width: 700px;
+>>>>>>> 2ae423e2ee6b06d3a93663639afc290b2dfcf384
   padding-left: 20px;
   border-left: 3px solid #c8c8c8;
 }
@@ -26,7 +34,10 @@ body {
 footer[role="contentinfo"] {
   border-top: 1px solid #cacbcb;
   display: block;
+<<<<<<< HEAD
   float: none;
+=======
+>>>>>>> 2ae423e2ee6b06d3a93663639afc290b2dfcf384
 }
 
 .footer p {
@@ -38,10 +49,13 @@ footer[role="contentinfo"] {
 
 .footer p small {
   font-size: inherit;
+<<<<<<< HEAD
 }
 
 /* CLEAR FLOATING BEFORE FOOTER
 ------------------------------------------ */
 .clearfix {
   clear: both;
+=======
+>>>>>>> 2ae423e2ee6b06d3a93663639afc290b2dfcf384
 }
