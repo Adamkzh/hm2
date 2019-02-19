@@ -1,77 +1,88 @@
-var faker = require('faker');
+var addressDataSource = require("../controllers/addressDataSource");
+const user = {email: "test@test.com"};
+var lastSearchResult = [];
+var lastSearchTerms = { address: "", zipcode: ""};
 
 var exports = module.exports = {};
 
-faker.locale = "en_US";
-const user = {email: "test@test.com"};
-var randomAddresses = [];
-
 // Display index page on GET.
 exports.index = function (req, res) {
-    if (randomAddresses.keys.length == 0) randomAddresses = getRandomAddress(20);
-    res.render('page/index', { user: user, addresses: randomAddresses, isSearchResult: false});
+    const addresses = addressDataSource.addresses();
+    var goToPage = 1;
+    if (req.query.page) {
+        const page = parseInt(req.query.page);
+        if (page) {
+            goToPage = page;
+        }
+    }
+
+    const paginationInfo = paginate(addresses.length, 5, goToPage);
+    res.render('page/index', { user: user,
+                               addresses: addresses.slice(paginationInfo.startIndex, paginationInfo.endIndex),
+                               isSearchResult: false,
+                               pagination: paginationInfo});
 };
-
-
 
 // Handle Search Form on POST.
 exports.search = function(req, res) {
     var address, zipcode;
+    lastSearchTerms.address = "";
+    lastSearchTerms.zipcode = "";
+
     if (req.body.address != null) {
         address = req.body.address;
+        lastSearchTerms.address = address;
     }
     if (req.body.zipcode != null) {
         zipcode = req.body.zipcode;
+        lastSearchTerms.zipcode = zipcode;
     }
-    // console.log("address:" + address + " zipcode:" + zipcode);
 
 
-    var matchingAddresses = randomAddresses;
+    var matchingAddresses = [];
     if ((address !== null && address !== "") || (zipcode !== null && zipcode !== "")) {
-        matchingAddresses = searchAddresses(address, zipcode);
+        matchingAddresses = addressDataSource.searchAddresses(address, zipcode);
     }
-    res.render('page/search', { user: user, addresses: matchingAddresses, isSearchResult: true });
+
+    lastSearchResult = matchingAddresses;
+
+    const paginationInfo = paginate(matchingAddresses.length, 5, 1);
+    res.render('page/search', { user: user,
+                                addresses: matchingAddresses.slice(paginationInfo.startIndex, paginationInfo.endIndex),
+                                isSearchResult: true,
+                                searchTerms: lastSearchTerms,
+                                pagination: paginationInfo});
 };
 
-function searchAddresses(address, zipcode) {
-    if (randomAddresses == null || randomAddresses.length == 0) {
-        randomAddresses = getRandomAddress(30);
+// Handle GET last search result on other pages.
+exports.viewSearchPage = function(req, res) {
+    const addresses = lastSearchResult;
+    var goToPage = 1;
+    if (req.query.page) {
+        const page = parseInt(req.query.page);
+        if (page) {
+            goToPage = page;
+        }
     }
 
-    var result = [];
-    if (address !== "" && zipcode !== "") {
-        randomAddresses.forEach(function (element) {
-            if (element.address.includes(address) && element.zipcode === zipcode) {
-                result.push(element);
-            }
-        });
-    } else if (address !== "") {
-        randomAddresses.forEach(function (element) {
-            if (element.address.includes(address)) {
-                result.push(element);
-            }
-        });
+    const paginationInfo = paginate(addresses.length, 5, goToPage);
+    res.render('page/search', { user: user,
+                                addresses: addresses.slice(paginationInfo.startIndex, paginationInfo.endIndex),
+                                isSearchResult: true,
+                                searchTerms: lastSearchTerms,
+                                pagination: paginationInfo});
+};
 
-    } else if (zipcode !== "") {
-        randomAddresses.forEach(function (element) {
-            if (element.zipcode === zipcode) {
-                result.push(element);
-            }
-        });
+function paginate(lengthOfData, elementsPerPage, targetPage) {
+    const totalPages = Math.ceil(lengthOfData / elementsPerPage);
+    if (targetPage > 0 && targetPage <= totalPages) {
+        return { page: targetPage,
+                 totalPages: totalPages,
+                 startIndex: (targetPage-1) * elementsPerPage,
+                 endIndex: targetPage * elementsPerPage};
     }
-    return result;
-}
-
-
-function getRandomAddress(num) {
-    var addresses = new Array();
-    for (let i = 0; i < num; i++) {
-        addresses.push({
-            address: faker.address.streetAddress() + "," + faker.address.city() + ',' + faker.address.stateAbbr(),
-            zipcode: faker.address.zipCode(),
-            image: faker.image.image(),
-            description: faker.address.latitude() + ", " +faker.address.longitude()
-        });
-    }
-    return addresses;
+    return { page: 1,
+             totalPages: totalPages,
+             startIndex: 0,
+             endIndex: elementsPerPage};
 }
