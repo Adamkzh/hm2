@@ -10,16 +10,17 @@ exports.addresses = function () {
 };
 
 exports.searchAddresses = function (address, zipcode) {
+    address = address.toLowerCase();
     var result = [];
     if (address !== "" && zipcode !== "") {
         randomAddresses.forEach(function (element) {
-            if (element.address.includes(address) && element.zipcode === zipcode) {
+            if (element.address.toLowerCase().includes(address) && element.zipcode === zipcode) {
                 result.push(element);
             }
         });
     } else if (address !== "") {
         randomAddresses.forEach(function (element) {
-            if (element.address.includes(address)) {
+            if (element.address.toLowerCase().includes(address)) {
                 result.push(element);
             }
         });
