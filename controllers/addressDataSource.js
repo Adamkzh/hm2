@@ -54,7 +54,7 @@ function getRandomAddress(num) {
         addresses.push({
             address: faker.address.streetAddress() + ", " + randomCity.city,
             zipcode: randomCity.zipcode,
-            image: "https://picsum.photos/300/300?image="+imageID,
+            image: "https://picsum.photos/485/300?image="+imageID,
             latitude: faker.address.latitude(),
             longitude: faker.address.longitude()
         });
