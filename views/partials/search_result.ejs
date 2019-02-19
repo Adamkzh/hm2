@@ -50,7 +50,7 @@
             <p>...</p>
             <a href="?page=<%= pagination.totalPages %>"><%= pagination.totalPages %></a>
         <%}%>
-        <a href="?page=<%= pagination.totalPages %>">&raquo;</a>
+        <a href="?page=<%= pagination.totalPages > 0 ? pagination.totalPages : 1 %>">&raquo;</a>
     </div>
 </div>
 
