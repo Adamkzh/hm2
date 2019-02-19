@@ -8,6 +8,9 @@ router.get('/', ctrlMain.index);
 // POST request to search addresses by keywords.
 router.post('/search', ctrlMain.search);
 
+// GET request to view last search result.
+router.get('/search', ctrlMain.viewSearchPage);
+
 module.exports = router;
 
 

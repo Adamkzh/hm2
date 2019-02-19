@@ -3,6 +3,15 @@
     <!-- Search form -->
     <% if (isSearchResult) { %>
     <h4>Search Result Below</h4>
+    <h5>
+        For
+        <%if(searchTerms.address.length > 0) {%>
+            address "<%= searchTerms.address %>"
+        <%}%>
+        <%if(searchTerms.zipcode.length > 0) {%>
+            zipcode "<%= searchTerms.zipcode %>"
+        <%}%>
+    </h5>
     <% } else { %>
     <h4>All Available Addresses</h4>
     <% } %>
@@ -18,5 +27,30 @@
     </div>
     <% }) %>
     <% } %>
+
+    <!-- Pagination bar -->
+    <div class="pagination">
+        <a href="?page=1">&laquo;</a>
+        <% var linkCount = 1;%>
+        <% var lastLinkPage = pagination.page;%>
+        <% for(var i=pagination.page-4; i < pagination.page; i++) { %>
+            <% if(i <= 0) { continue; }%>
+            <a href="?page=<%= i %>"><%= i %></a>
+            <% linkCount += 1;%>
+        <% } %>
+            <a class="active" href="#"><%= pagination.page %></a>
+        <% for(var i=pagination.page + 1; i < pagination.totalPages && linkCount < 9; i++) { %>
+            <a href="?page=<%= i %>"><%= i %></a>
+            <% lastLinkPage = i; %>
+            <% linkCount += 1;%>
+        <% } %>
+        <% if(pagination.totalPages - lastLinkPage == 1) {%>
+            <a href="?page=<%= pagination.totalPages %>"><%= pagination.totalPages %></a>
+        <%} else if(pagination.totalPages - lastLinkPage > 1) {%>
+            <p>...</p>
+            <a href="?page=<%= pagination.totalPages %>"><%= pagination.totalPages %></a>
+        <%}%>
+        <a href="?page=<%= pagination.totalPages %>">&raquo;</a>
+    </div>
 </div>
 
