@@ -1,9 +1,9 @@
 var express = require('express');
 var router = express.Router();
+var ctrlUsers = require("../controllers/users");
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
+// GET request to get index page.
+router.get('/login', ctrlUsers.login);
+
 
 module.exports = router;

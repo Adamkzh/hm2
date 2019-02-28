@@ -1,0 +1,57 @@
+
+<div id="logreg-forms">
+    <form class="form-signin" method="post" action="/users/signin">
+        <h1 class="h3 mb-3 font-weight-normal" style="text-align: center"> Sign in</h1>
+
+        <input id="inputEmail" type="email" name="signin_email" class="custom-form-control" placeholder="Email address"
+               autofocus="" pattern = "^.+@.+\..{2,4}$" required>
+        <input id="inputPassword" type="password" name="signin_password" class="custom-form-control"
+               placeholder="Password"
+               pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" required>
+
+        <button class="btn btn-success btn-block" type="submit"><i class="fas fa-sign-in-alt"></i> Sign in</button>
+        <a href="#" id="forgot_pswd">Forgot password?</a>
+        <hr>
+        <!-- <p>Don't have an account!</p>  -->
+        <button class="btn btn-primary btn-block" type="button" id="btn-signup"><i class="fas fa-user-plus"></i> Sign up New Accountn</button>
+    </form>
+
+
+    <form action="/reset/password/" class="form-reset">
+        <input type="email" id="resetEmail" class="custom-form-control" name="reset_email"
+               placeholder="Email address" required="" autofocus="">
+        <button class="btn btn-primary btn-block" type="submit">Reset Password</button>
+        <a href="#" id="cancel_reset"><i class="fas fa-angle-left"></i> Back</a>
+    </form>
+
+
+
+    <form action="/signup" class="form-signup" method="post" onsubmit="checkRepeatPassword()">
+
+        <input type="text" id="user-name" class="custom-form-control" name="signup_name" placeholder="Full name" required autofocus="">
+        <input type="email" id="user-email" class="custom-form-control" name="signup_email"
+               placeholder="Email" required autofocus=""
+               pattern = "^.+@.+\..{2,4}$" >
+               <!--oninvalid="invalidEmail(this);" oninput="invalidEmail(this);" onchange="invalidEmail(this);">-->
+
+        <input type="password" id="password" class="custom-form-control" name="signup_password"
+               placeholder="Password" required autofocus=""
+               pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" >
+               <!--oninvalid="invalidPassword(this);" oninput="invalidPassword(this)">-->
+
+        <input type="password" id="repeat_password" class="custom-form-control" name="repeat_password"
+               placeholder="Repeat Password" autofocus=""
+               onkeyup="checkRepeatPassword()" required>
+
+        <button class="btn btn-primary btn-block" type="submit"><i class="fas fa-user-plus"></i> Sign Up</button>
+        <a href="#" id="cancel_signup"><i class="fas fa-angle-left"></i> Back</a>
+    </form>
+    <br>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="/script.js"></script>
+<script>
+
+</script>
