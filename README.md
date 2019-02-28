@@ -6,25 +6,20 @@
 2. Search addresses according to street, city, state, and zipcode. Get the matched addresses and their associated satellite images back and display them on the page.
 
 ### How to run the code?
-```bash
+
+```sh
 cd hm2
 npm install
 npm start
 ```
 
-The web app will run on port 3000, `http://localhost:3000`
+The web app will run on port 3000, try `http://localhost:3000`
 
 
 
 ## hm 3
 
 1. Follow the instruction to run the app
-
-```bash
-cd hm2
-npm install
-npm start
-```
 
 ### Validation
 1. click 'Login' on the nav bar
