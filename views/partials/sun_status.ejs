@@ -2,8 +2,9 @@
 <div class="s">
     <!-- Sun Status Canvas -->
     <canvas id="canvas" width="300" height="300"></canvas>
-    <div>
+    <div id="tips">
         Move your mouse into the canvas to start the animation.
+        Click the canvas to see Elon Musk's Twitter!!!
     </div>
 </div>
 
@@ -63,6 +64,13 @@ canvas.addEventListener('mouseover', function(e) {
 
 canvas.addEventListener('mouseout', function(e) {
   window.cancelAnimationFrame(raf);
+});
+
+document.getElementById("canvas").addEventListener("click", function(){
+  var node = document.createElement("h1");
+  var textnode = document.createTextNode("ET phone home. No answer 😢");
+  node.appendChild(textnode);
+  document.getElementById("tips").appendChild(node);
 });
 
 init();
