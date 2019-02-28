@@ -11,6 +11,9 @@
         <%if(searchTerms.zipcode.length > 0) {%>
             zipcode "<%= searchTerms.zipcode %>"
         <%}%>
+        <%if(searchTerms.zipcode.length <= 0 && searchTerms.address.length <= 0) {%>
+            ""
+        <%}%>
     </h5>
     <% } else { %>
     <h4>All Available Addresses</h4>
