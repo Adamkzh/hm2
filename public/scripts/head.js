@@ -6,5 +6,5 @@ function onPageLoad() {
 }
 
 function drawSunStatusCanvas(canvas) {
-    console.log("These is sun status canvas!");
+    console.log("There is a sun status canvas!");
 }
