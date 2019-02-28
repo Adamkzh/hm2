@@ -17,7 +17,7 @@ exports.index = function (req, res) {
     }
 
     const paginationInfo = paginate(addresses.length, 5, goToPage);
-    res.render('page/index', { user: user,
+    res.render('page/index', { user: null,
                                addresses: addresses.slice(paginationInfo.startIndex, paginationInfo.endIndex),
                                isSearchResult: false,
                                pagination: paginationInfo});
