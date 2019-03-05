@@ -23,6 +23,12 @@ exports.index = function (req, res) {
                                pagination: paginationInfo});
 };
 
+
+// Display map page on GET
+exports.map = function (req, res) {
+    res.render('page/map', {user: null});
+};
+
 // Handle Search Form on POST.
 exports.search = function(req, res) {
     var address, zipcode;

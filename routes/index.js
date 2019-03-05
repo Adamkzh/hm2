@@ -5,6 +5,9 @@ var ctrlMain = require("../controllers/main");
 // GET request to get index page.
 router.get('/', ctrlMain.index);
 
+// GET request to get index page.
+router.get('/map', ctrlMain.map);
+
 // POST request to search addresses by keywords.
 router.post('/search', ctrlMain.search);
 
