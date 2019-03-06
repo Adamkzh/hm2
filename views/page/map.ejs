@@ -11,25 +11,26 @@
   <style>
   #gallery { float: left; width: 65%; min-height: 12em; }
   .gallery.custom-state-active { background: #eee; }
-  .gallery li { float: left; width: 96px; padding: 0.4em; margin: 0 0.4em 0.4em 0; text-align: center; }
+  .gallery li { float: left; width: 146px; padding: 0.4em; margin: 0 0.4em 0.4em 0; text-align: center; }
   .gallery li h5 { margin: 0 0 0.4em; cursor: move; }
   .gallery li a { float: right; }
   .gallery li a.ui-icon-zoomin { float: left; }
   .gallery li img { width: 100%; cursor: move; }
  
-  #trash { float: right; width: 32%; min-height: 18em; padding: 1%; }
-  #trash h4 { line-height: 16px; margin: 0 0 0.4em; }
-  #trash h4 .ui-icon { float: left; }
-  #trash .gallery h5 { display: none; }
+  #cart { float: right; width: 32%; min-height: 18em; padding: 1%; }
+  #cart h4 { line-height: 16px; margin: 0 0 0.4em; }
+  #cart h4 .ui-icon { float: left; }
+  #cart .gallery h5 { display: none; }
+
+
   </style>
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script>
   $( function() {
  
-    // There's the gallery and the trash
-    var $gallery = $( "#gallery" ),
-      $trash = $( "#trash" );
+    // There's the gallery and the cart
+    var $gallery = $( "#gallery" ), $cart = $( "#cart" );
  
     // Let the gallery items be draggable
     $( "li", $gallery ).draggable({
@@ -40,61 +41,61 @@
       cursor: "move"
     });
  
-    // Let the trash be droppable, accepting the gallery items
-    $trash.droppable({
-      accept: "#gallery > li",
+    // Let the gallery be droppabl, accepting items from the cart
+    $gallery.droppable({
+      accept: "#cart li",
       classes: {
         "ui-droppable-active": "ui-state-highlight"
       },
       drop: function( event, ui ) {
-        deleteImage( ui.draggable );
+        removeItem( ui.draggable );
       }
     });
  
-    // Let the gallery be droppable as well, accepting items from the trash
-    $gallery.droppable({
-      accept: "#trash li",
+    // Let the cart be droppable, accepting the gallery items
+    $cart.droppable({
+      accept: "#gallery > li",
       classes: {
         "ui-droppable-active": "custom-state-active"
       },
       drop: function( event, ui ) {
-        recycleImage( ui.draggable );
+        addItem( ui.draggable );
       }
     });
  
-    // Image deletion function
-    var recycle_icon = "<a href='link/to/recycle/script/when/we/have/js/off' title='Recycle this image' class='ui-icon ui-icon-refresh'>Recycle image</a>";
-    function deleteImage( $item ) {
-      $item.fadeOut(function() {
-        var $list = $( "ul", $trash ).length ?
-          $( "ul", $trash ) :
-          $( "<ul class='gallery ui-helper-reset'/>" ).appendTo( $trash );
- 
-        $item.find( "a.ui-icon-trash" ).remove();
-        $item.append( recycle_icon ).appendTo( $list ).fadeIn(function() {
-          $item
-            .animate({ width: "48px" })
-            .find( "img" )
-              .animate({ height: "36px" });
-        });
-      });
-    }
- 
-    // Image recycle function
-    var trash_icon = "<a href='link/to/trash/script/when/we/have/js/off' title='Delete this image' class='ui-icon ui-icon-trash'>Delete image</a>";
-    function recycleImage( $item ) {
-      $item.fadeOut(function() {
+    // remove from cart
+    var add_icon = "<a href='link/to/recycle/script/when/we/have/js/off' title='remove this item' class='ui-icon ui-icon-plusthick'>Recycle image</a>";
+    function removeItem( $item ) {
+        $item.fadeOut(function() {
         $item
-          .find( "a.ui-icon-refresh" )
+          .find( "a.ui-icon-trash" )
             .remove()
           .end()
-          .css( "width", "96px")
-          .append( trash_icon )
+          .css( "width", "146px")
+          .append( add_icon )
           .find( "img" )
             .css( "height", "72px" )
           .end()
           .appendTo( $gallery )
           .fadeIn();
+      });
+    }
+ 
+    // Image recycle function
+    var trash_icon = "<a href='link/to/cart/script/when/we/have/js/off' title=add to the cart' class='ui-icon ui-icon-trash'>add to the cart</a>";
+    function addItem( $item ) {
+      $item.fadeOut(function() {
+        var $list = $( "ul", $cart ).length ?
+          $( "ul", $cart ) :
+          $( "<ul class='gallery ui-helper-reset'/>" ).appendTo( $cart );
+ 
+        $item.find( "a.ui-icon-plusthick" ).remove();
+        $item.append( trash_icon ).appendTo( $list ).fadeIn(function() {
+          $item
+            .animate({ width: "100px" })
+            .find( "img" )
+              .animate({ height: "56px" });
+        });
       });
     }
  
@@ -112,7 +113,7 @@
         setTimeout(function() {
           img.dialog({
             title: title,
-            width: 400,
+            width: 600,
             modal: true
           });
         }, 1 );
@@ -124,12 +125,12 @@
       var $item = $( this ),
         $target = $( event.target );
  
-      if ( $target.is( "a.ui-icon-trash" ) ) {
-        deleteImage( $item );
+      if ( $target.is( "a.ui-icon-plusthick" ) ) {
+        addItem( $item );
       } else if ( $target.is( "a.ui-icon-zoomin" ) ) {
         viewLargerImage( $target );
-      } else if ( $target.is( "a.ui-icon-refresh" ) ) {
-        recycleImage( $item );
+      } else if ( $target.is( "a.ui-icon-trash" ) ) {
+        removeItem( $item );
       }
  
       return false;
@@ -155,42 +156,42 @@
         });
         </script>
     </main>
-        <% include ../partials/footer.ejs %>
+  <p></p>     
 <div class="ui-widget ui-helper-clearfix">
  
 <ul id="gallery" class="gallery ui-helper-reset ui-helper-clearfix">
   <li class="ui-widget-content ui-corner-tr">
-    <h5 class="ui-widget-header">High Tatras</h5>
-    <img src="https://www.wholesalesolar.com/cms/canadian-solar-cs6k-270p-black-poly-solar-panel-882039608.1930017.png" alt="The peaks of High Tatras" width="96" height="72">
-    <a href="images/high_tatras.jpg" title="View larger image" class="ui-icon ui-icon-zoomin">View larger</a>
-    <a href="link/to/trash/script/when/we/have/js/off" title="Delete this image" class="ui-icon ui-icon-trash">Delete image</a>
+    <h5 class="ui-widget-header">Solar Panel</h5>
+    <img src="https://www.wholesalesolar.com/cms/canadian-solar-cs6k-270p-black-poly-solar-panel-882039608.1930017.png" alt="The peaks of High Tatras" width="146" height="72">
+    <a href="/images/panel.png" title="View larger image" class="ui-icon ui-icon-zoomin">View larger</a>
+    <a href="link/to/cart/script/when/we/have/js/off" title="add to cart" class="ui-icon ui-icon-plusthick">Delete image</a>
   </li>
   <li class="ui-widget-content ui-corner-tr">
-    <h5 class="ui-widget-header">High Tatras 2</h5>
-    <img src="https://www.plxdevices.com/v/vspfiles/photos/897346002597-2T.png" alt="The chalet at the Green mountain lake" width="96" height="72">
-    <a href="https://www.plxdevices.com/v/vspfiles/photos/897346002597-2T.png" title="View larger image" class="ui-icon ui-icon-zoomin">View larger</a>
-    <a href="link/to/trash/script/when/we/have/js/off" title="Delete this image" class="ui-icon ui-icon-trash">Delete image</a>
+    <h5 class="ui-widget-header">Converter</h5>
+    <img src="https://www.plxdevices.com/v/vspfiles/photos/897346002597-2T.png" alt="The chalet at the Green mountain lake" width="146" height="72">
+    <a href="/images/converter.png" title="View larger image" class="ui-icon ui-icon-zoomin">View larger</a>
+    <a href="link/to/cart/script/when/we/have/js/off" title="add to cart" class="ui-icon ui-icon-plusthick">Delete image</a>
   </li>
   <li class="ui-widget-content ui-corner-tr">
-    <h5 class="ui-widget-header">High Tatras 3</h5>
-    <img src="https://www.plxdevices.com/v/vspfiles/photos/897346002665-2T.jpg" alt="Planning the ascent" width="96" height="72">
-    <a href="https://www.plxdevices.com/v/vspfiles/photos/897346002665-2T.jpg" title="View larger image" class="ui-icon ui-icon-zoomin">View larger</a>
-    <a href="link/to/trash/script/when/we/have/js/off" title="Delete this image" class="ui-icon ui-icon-trash">Delete image</a>
+    <h5 class="ui-widget-header">Solar Power</h5>
+    <img src="https://www.plxdevices.com/v/vspfiles/photos/897346002665-2T.jpg" alt="Planning the ascent" width="146" height="72">
+    <a href="/images/power.jpg" title="View larger image" class="ui-icon ui-icon-zoomin">View larger</a>
+    <a href="link/to/cart/script/when/we/have/js/off" title="add to cart" class="ui-icon ui-icon-plusthick">Delete image</a>
   </li>
   <li class="ui-widget-content ui-corner-tr">
-    <h5 class="ui-widget-header">High Tatras 4</h5>
-    <img src="https://mondrian.mashable.com/uploads%252Fcard%252Fimage%252F408449%252F9419c228-190a-4366-86e4-9aec02e3d694.jpg%252F950x534__filters%253Aquality%252890%2529.jpg?signature=3ujntRWeEe4Ou9zWJoi8p7G0pCA=&source=https%3A%2F%2Fblueprint-api-production.s3.amazonaws.com" alt="On top of Kozi kopka" width="96" height="72">
-    <a href="https://mondrian.mashable.com/uploads%252Fcard%252Fimage%252F408449%252F9419c228-190a-4366-86e4-9aec02e3d694.jpg%252F950x534__filters%253Aquality%252890%2529.jpg?signature=3ujntRWeEe4Ou9zWJoi8p7G0pCA=&source=https%3A%2F%2Fblueprint-api-production.s3.amazonaws.com" title="View larger image" class="ui-icon ui-icon-zoomin">View larger</a>
-    <a href="link/to/trash/script/when/we/have/js/off" title="Delete this image" class="ui-icon ui-icon-trash">Delete image</a>
+    <h5 class="ui-widget-header">Solar Battery</h5>
+    <img src="https://mondrian.mashable.com/uploads%252Fcard%252Fimage%252F408449%252F9419c228-190a-4366-86e4-9aec02e3d694.jpg%252F950x534__filters%253Aquality%252890%2529.jpg?signature=3ujntRWeEe4Ou9zWJoi8p7G0pCA=&source=https%3A%2F%2Fblueprint-api-production.s3.amazonaws.com" alt="Tesla Battery" width="146" height="72">
+    <a href="/images/battery.jpg" title="View larger image" class="ui-icon ui-icon-zoomin">View larger</a>
+    <a href="link/to/cart/script/when/we/have/js/off" title="add to cart" class="ui-icon ui-icon-plusthick">Delete image</a>
   </li>
 </ul>
  
-<div id="trash" class="ui-widget-content ui-state-default">
-  <h4 class="ui-widget-header"><span class="ui-icon ui-icon-trash">Trash</span> Trash</h4>
+<div id="cart" class="ui-widget-content ui-state-default">
+  <h4 class="ui-widget-header"><span class="ui-icon ui-icon-cart">Your Shopping Cart</span> Your Shopping Cart</h4>
 </div>
  
 </div>
  
- 
+<% include ../partials/footer.ejs %>
 </body>
 </html>
