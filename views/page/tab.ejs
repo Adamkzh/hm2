@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>jQuery UI Tabs - Content via Ajax</title>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <style>
+        #droppable { width: 150px; height: 150px; padding: 0.5em; float: left; margin: 10px; }
+        #map {
+            width: 800px; height: 600px;
+        }
+        #rooftop-image {
+            width: 750px; height: 550px;
+        }
+    </style>
+    <script>
+        $( function() {
+            $( "#tabs" ).tabs({
+                beforeLoad: function( event, ui ) {
+                    ui.jqXHR.fail(function() {
+                        ui.panel.html(
+                            "Couldn't load this tab. We'll try to fix this as soon as possible. " +
+                            "If this wouldn't be a demo." );
+                    });
+                }
+            });
+
+            $( "input" ).checkboxradio();
+            $( "fieldset" ).controlgroup();
+            $( "[name='panel-type']").on( "change", updateImage);
+
+            function updateImage(e) {
+                var value = e.target.value;
+                if (value === 'content1') {
+                    $('#panel-image').attr("src", "/images/content1.jpg");
+                } else if (value === 'content2') {
+                    $('#panel-image').attr("src", "/images/content2.jpg");
+                } else if (value === 'content3') {
+                    $('#panel-image').attr("src", "/images/content3.jpg");
+                } else {
+                    console.log(e.target.value + " not found");
+                }
+                console.log(value);
+                return false;
+            }
+
+            $( "#panel-image" ).draggable();
+            $( "#map" ).droppable({
+                drop: function( event, ui ) {
+                    $( this )
+                        .addClass( "ui-state-highlight" )
+                        .find( "p" )
+                        .html( "Dropped!" );
+                }
+            });
+
+        } );
+    </script>
+</head>
+
+<body>
+
+<div id="tabs">
+    <h3>Types of Solar Panels</h3>
+    <ul>
+        <li><a href="ajax/content1.html">Monocrystalline Solar Panels</a></li>
+        <li><a href="ajax/content2.html">Polycrystalline Solar Panels</a></li>
+        <li><a href="ajax/content3.html">Thin-Film Solar Cells</a></li>
+        <li><a href="ajax/content4.html">Other Options to Consider</a></li>
+    </ul>
+</div>
+
+
+
+<div class="widget">
+    <h3>1.) Select a panel type</h3>
+    <fieldset>
+        <legend>1.) Select a panel type</legend>
+        <label for="shape-circle">Monocrystalline</label>
+        <input type="radio" name="panel-type" id="shape-circle" value="content1" data-background-image="url(images/content1.jpg)">
+        <label for="shape-square">Polycrystalline</label>
+        <input type="radio" name="panel-type" id="shape-square" value="content2" data-background-image="url(images/content2.jpg)">
+        <label for="shape-pill">Thin-Film</label>
+        <input type="radio" name="panel-type" id="shape-pill" value="content3" data-background-image="url(images/content3.jpg)">
+    </fieldset>
+
+</div>
+<div class="panel background image-container">
+    <h4>2.) Drag me arround.</h4>
+    <image id="panel-image" class="ui-widget-content" style="width: 350px; height: 200px" ></image>
+</div>
+
+<div id='map'>
+    <image src="images/rooftop.jpg" id="rooftop-image"></image>
+    <p></p>
+</div>
+</body>
+</html>
