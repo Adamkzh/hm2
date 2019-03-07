@@ -23,6 +23,7 @@
   #cart h4 .ui-icon { float: left; }
   #cart .gallery h5 { display: none; }
   #opener {color: white; background: darkgreen;}
+  .shopping-cart-div {width: 1100px; margin: 0 auto;}
   </style>
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -171,21 +172,20 @@
         <% include ../page/tab.ejs %>
     </main>
 
+<div class="shopping-cart-div">
 <!--Dialog Begin -->
-
-
-
-<h3>Choose the product and add to shopping cart.</h3>
-<div id="dialog" title="Arranger Panel">
-  <p>Click the bottom left corner of the product to view larger images.</p>
+<div>
+  <h3>4). Choose the product and add to shopping cart.</h3>
+  <div id="dialog" title="Arranger Panel">
+    <p>Click the bottom left corner of the product to view larger images.</p>
+  </div>
+  <button id="opener">View Tips</button>
 </div>
-<button id="opener">View Tips</button>
 
 <!--Dialog END-->
 
 
 <div class="ui-widget ui-helper-clearfix">
- 
 <ul id="gallery" class="gallery ui-helper-reset ui-helper-clearfix">
   <li class="ui-widget-content ui-corner-tr">
     <h5 class="ui-widget-header">Solar Panel</h5>
@@ -217,6 +217,7 @@
   <h4 class="ui-widget-header"><span class="ui-icon ui-icon-cart">Your Shopping Cart</span> Your Shopping Cart</h4>
 </div>
  
+</div>
 </div>
  
 <% include ../partials/footer.ejs %>
