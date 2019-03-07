@@ -3,10 +3,11 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>jQuery UI Tabs - Content via Ajax</title>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <title>Homework 4 Jquery UI</title>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="stylesheets/jquery-ui.theme.css">
+    <link rel="stylesheet" href="stylesheets/jquery-ui.structure.css">
     <style>
         #map {
             width: 1000px; height: 700px;
@@ -60,7 +61,6 @@
                 return false;
             }
 
-            // $( "#panel-image" ).resizable({aspectRatio: 16 / 9});
             $( "#panel-container" ).draggable({
                 helper: 'clone',
                 cursor: 'move',
@@ -92,12 +92,12 @@
 
 <body>
 
-<div id="tabs">
+<div id="tabs" class="ui-tabs ui-corner-all ui-widget ui-widget-content">
     <h3>Types of Solar Panels</h3>
-    <ul>
-        <li><a href="ajax/content1.html">Monocrystalline Solar Panels</a></li>
-        <li><a href="ajax/content2.html">Polycrystalline Solar Panels</a></li>
-        <li><a href="ajax/content3.html">Thin-Film Solar Cells</a></li>
+    <ul class="ui-tabs-nav ui-corner-all ui-helper-reset ui-helper-clearfix ui-widget-header">
+        <li><a href="ajax/content1.html" class="ui-tabs-anchor">Monocrystalline Solar Panels</a></li>
+        <li><a href="ajax/content2.html" class="ui-tabs-anchor">Polycrystalline Solar Panels</a></li>
+        <li><a href="ajax/content3.html" class="ui-tabs-anchor">Thin-Film Solar Cells</a></li>
         <li><a href="ajax/content4.html">Other Options to Consider</a></li>
     </ul>
 </div>
@@ -119,14 +119,14 @@
 </div>
 <!--<div class="panel background panel-image image-container">-->
 <div>
-    <h4>2.) Drag me to the rooftop image.</h4>
+    <h3>2.) Drag me to the rooftop image.</h3>
     <div class="panel background ui-widget-content" id="panel-container" >
         <image id="panel-image"  src="images/c1.jpg"></image>
     </div>
 </div>
 
 
-<h4>Resize the panel after dropped. </h4>
+<h3>3.) Resize the panel after dropped. </h3>
 <div id='map'></div>
 </body>
 </html>
