@@ -12,25 +12,29 @@
             width: 1000px; height: 700px;
             background-image: url("/images/rooftop.jpg");
         }
-
-        #panel-container {
-            width: 100px; height: 170px;
-        }
-
-        #panel-image {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-            z-index: 10000;
-        }
-
-
         .ui-helper {
             width: 100px; height: 170px;
         }
+
+        #draggableHelper{
+            width: 50px;
+            height: 100px;
+            z-index: 1000;
+        }
+        #panel-image{
+            width: 50px;
+            height: 100px;
+        }
+        .frame{
+            height: 120px;
+        }
     </style>
     <script>
+
         $( function() {
+            $('#draggableHelper').draggable();
+            $('#panel-image').resizable();
+            
             $( "#tabs" ).tabs({
                 beforeLoad: function( event, ui ) {
                     ui.jqXHR.fail(function() {
@@ -59,35 +63,6 @@
                 }
                 return false;
             }
-
-            $( "#panel-container" ).draggable({
-                // helper: 'clone',
-                // cursor: 'move',
-                // tolerance: 'fit',
-                // start  : function(event, ui){
-                //     $(ui.helper).addClass("ui-helper");
-                // }
-            });
-
-            var x = null;
-
-
-            // $( "#map" ).droppable();
-            // $( "#map" ).droppable({
-            //     drop: function( event, ui ) {
-            //         x = ui.helper.clone();
-            //         x.draggable({
-            //             helper: 'original',
-            //             containment: '#map',
-            //             tolerance: 'fit'
-            //         });
-            //         x.find('.ui-resizable-handle').remove();
-            //         x.resizable();
-            //         x.appendTo('#map');
-            //         ui.helper.remove();
-            //     }
-            // });
-
         } );
     </script>
 </head>
@@ -121,11 +96,23 @@
 </div>
 
 <h3>2.) Drag me to the rooftop image.</h3>
-<div class="panel background ui-widget-content" id="panel-container" >
-    <image id="panel-image"  src="images/c1.jpg"></image>
+
+<div class='frame'>
+    <div id="draggableHelper" style="display:inline-block">
+        <img id="panel-image" src="images/c1.jpg" />
+    </div>
 </div>
 
-
 <h3>3.) Resize the panel after dropped. </h3>
+<div id='map' style='width: 1200px; height: 600px;'></div>
+<script>
+mapboxgl.accessToken = 'pk.eyJ1IjoicGx4ZGV2aWNlc2FkYW0iLCJhIjoiY2pka3N6MzZ0MDBzMzJ4cjB4YzJ6azZ5byJ9.7uKN28ygFqfImEoBmH9Jrw';
+var map = new mapboxgl.Map({
+container: 'map',
+center: [-121.8823889,37.335228],
+zoom: 19,
+style: 'mapbox://styles/mapbox/satellite-streets-v10'
+});
+</script>
 </body>
 </html>
