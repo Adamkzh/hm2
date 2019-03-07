@@ -14,6 +14,8 @@ router.post('/search', ctrlMain.search);
 // GET request to view last search result.
 router.get('/search', ctrlMain.viewSearchPage);
 
+router.get('/dialog', ctrlMain.dialog);
+
 module.exports = router;
 
 

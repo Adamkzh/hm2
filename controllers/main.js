@@ -91,4 +91,11 @@ function paginate(lengthOfData, elementsPerPage, targetPage) {
              totalPages: totalPages,
              startIndex: 0,
              endIndex: elementsPerPage};
+
 }
+
+
+exports.dialog = function (req, res) {
+    res.render('page/dialog', {user: null});
+};
+
