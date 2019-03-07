@@ -13,11 +13,7 @@
             background: #495057;
             background-image: url("/images/rooftop.jpg");
         }
-        #rooftop-image {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-        }
+
         #panel-container {
             width: 100px; height: 150px;
         }
@@ -26,6 +22,10 @@
             max-width: 100%;
             max-height: 100%;
             object-fit: contain;
+        }
+
+        .ui-helper {
+            width: 100px; height: 150px;
         }
     </style>
     <script>
@@ -64,7 +64,10 @@
             $( "#panel-container" ).draggable({
                 helper: 'clone',
                 cursor: 'move',
-                tolerance: 'fit'
+                tolerance: 'fit',
+                start  : function(event, ui){
+                    $(ui.helper).addClass("ui-helper");
+                }
             });
 
             var x = null;
@@ -80,8 +83,6 @@
                     x.resizable();
                     x.appendTo('#map');
                     ui.helper.remove();
-
-                    // $( this ) .addClass( "ui-state-highlight" ) .find( "p" ) .html( "Dropped!" );
                 }
             });
 
@@ -125,9 +126,7 @@
 </div>
 
 
-<div id='map'>
-    <!--<image src="images/rooftop.jpg" id="rooftop-image"></image>-->
-    <p></p>
-</div>
+<h4>Resize the panel after dropped. </h4>
+<div id='map'></div>
 </body>
 </html>
