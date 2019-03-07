@@ -24,13 +24,22 @@
   #cart h4 .ui-icon { float: left; }
   #cart .gallery h5 { display: none; }
 
+  .singlepanel {
+      float: left;
+      height: 2%;
+      width: 2%;
+      margin-right: 2px;
+      z-index: 10000;
+  }
 
   </style>
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script>
   $( function() {
- 
+    
+    $(".singlepanel").draggable();
+
     // There's the gallery and the cart
     var $gallery = $( "#gallery" ), $cart = $( "#cart" );
  
@@ -147,6 +156,17 @@
 
 <!-- Page Content -->
 <main class="container">
+        <div>
+            <img class='singlepanel' src="https://www.wholesalesolar.com/cms/astronergy-chsm6612p-335-silver-poly-solar-panel-20181221174200.1977435.jpg" >
+            <img class='singlepanel' src="https://www.wholesalesolar.com/cms/astronergy-chsm6612p-335-silver-poly-solar-panel-20181221174200.1977435.jpg" >
+            <img class='singlepanel' src="https://www.wholesalesolar.com/cms/astronergy-chsm6612p-335-silver-poly-solar-panel-20181221174200.1977435.jpg" >
+            <img class='singlepanel' src="https://www.wholesalesolar.com/cms/astronergy-chsm6612p-335-silver-poly-solar-panel-20181221174200.1977435.jpg" >
+            <img class='singlepanel' src="https://www.wholesalesolar.com/cms/astronergy-chsm6612p-335-silver-poly-solar-panel-20181221174200.1977435.jpg" >
+            <img class='singlepanel' src="https://www.wholesalesolar.com/cms/astronergy-chsm6612p-335-silver-poly-solar-panel-20181221174200.1977435.jpg" >
+            <img class='singlepanel' src="https://www.wholesalesolar.com/cms/astronergy-chsm6612p-335-silver-poly-solar-panel-20181221174200.1977435.jpg" >
+            <img class='singlepanel' src="https://www.wholesalesolar.com/cms/astronergy-chsm6612p-335-silver-poly-solar-panel-20181221174200.1977435.jpg" >
+        </div>
+        
         <div id='map' style='width: 1200px; height: 600px;'></div>
         <script>
         mapboxgl.accessToken = 'pk.eyJ1IjoicGx4ZGV2aWNlc2FkYW0iLCJhIjoiY2pka3N6MzZ0MDBzMzJ4cjB4YzJ6azZ5byJ9.7uKN28ygFqfImEoBmH9Jrw';

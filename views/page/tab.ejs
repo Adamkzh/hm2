@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Homework 4 Jquery UI</title>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="stylesheets/jquery-ui.theme.css">
+    <link rel="stylesheet" href="stylesheets/jquery-ui.structure.css">
+    <style>
+        #map {
+            width: 1000px; height: 700px;
+            background: #495057;
+            background-image: url("/images/rooftop.jpg");
+        }
+
+        #panel-container {
+            width: 100px; height: 150px;
+        }
+
+        #panel-image {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .ui-helper {
+            width: 100px; height: 150px;
+        }
+    </style>
+    <script>
+        $( function() {
+            $( "#tabs" ).tabs({
+                beforeLoad: function( event, ui ) {
+                    ui.jqXHR.fail(function() {
+                        ui.panel.html(
+                            "Couldn't load this tab. We'll try to fix this as soon as possible. " +
+                            "If this wouldn't be a demo." );
+                    });
+                }
+            });
+
+            $( "input" ).checkboxradio();
+            $( "fieldset" ).controlgroup();
+            $( "[name='panel-type']").on( "change", updateImage);
+
+            function updateImage(e) {
+                var value = e.target.value;
+                if (value === 'content1') {
+                    $('#panel-image').attr("src", "/images/c1.jpg");
+                    // $('#panel-image').css("background-image", "src(/images/c1.jpg)");
+                } else if (value === 'content2') {
+                    $('#panel-image').attr("src", "/images/c2.jpg");
+                } else if (value === 'content3') {
+                    $('#panel-image').attr("src", "/images/c3.jpg");
+                } else {
+                    console.log(e.target.value + " not found");
+                }
+                console.log(value);
+                return false;
+            }
+
+            $( "#panel-container" ).draggable({
+                helper: 'clone',
+                cursor: 'move',
+                tolerance: 'fit',
+                start  : function(event, ui){
+                    $(ui.helper).addClass("ui-helper");
+                }
+            });
+
+            var x = null;
+            $( "#map" ).droppable({
+                drop: function( event, ui ) {
+                    x = ui.helper.clone();
+                    x.draggable({
+                        helper: 'original',
+                        containment: '#map',
+                        tolerance: 'fit'
+                    });
+                    x.find('.ui-resizable-handle').remove();
+                    x.resizable();
+                    x.appendTo('#map');
+                    ui.helper.remove();
+                }
+            });
+
+        } );
+    </script>
+</head>
+
+<body>
+
+<div id="tabs" class="ui-tabs ui-corner-all ui-widget ui-widget-content">
+    <h3>Types of Solar Panels</h3>
+    <ul class="ui-tabs-nav ui-corner-all ui-helper-reset ui-helper-clearfix ui-widget-header">
+        <li><a href="ajax/content1.html" class="ui-tabs-anchor">Monocrystalline Solar Panels</a></li>
+        <li><a href="ajax/content2.html" class="ui-tabs-anchor">Polycrystalline Solar Panels</a></li>
+        <li><a href="ajax/content3.html" class="ui-tabs-anchor">Thin-Film Solar Cells</a></li>
+        <li><a href="ajax/content4.html">Other Options to Consider</a></li>
+    </ul>
+</div>
+
+
+
+<div class="widget">
+    <h3>1.) Select a panel type</h3>
+    <fieldset>
+        <legend>1.) Select a panel type</legend>
+        <label for="shape-circle">Monocrystalline</label>
+        <input type="radio" name="panel-type" id="shape-circle" value="content1" data-background-image="url(images/content1.jpg)" checked>
+        <label for="shape-square">Polycrystalline</label>
+        <input type="radio" name="panel-type" id="shape-square" value="content2" data-background-image="url(images/content2.jpg)">
+        <label for="shape-pill">Thin-Film</label>
+        <input type="radio" name="panel-type" id="shape-pill" value="content3" data-background-image="url(images/content3.jpg)">
+    </fieldset>
+
+</div>
+<!--<div class="panel background panel-image image-container">-->
+<div>
+    <h3>2.) Drag me to the rooftop image.</h3>
+    <div class="panel background ui-widget-content" id="panel-container" >
+        <image id="panel-image"  src="images/c1.jpg"></image>
+    </div>
+</div>
+
+
+<h3>3.) Resize the panel after dropped. </h3>
+<div id='map'></div>
+</body>
+</html>

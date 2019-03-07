@@ -29,6 +29,10 @@ exports.map = function (req, res) {
     res.render('page/map', {user: null});
 };
 
+exports.tab = function(req, res) {
+    res.render('page/tab');
+};
+
 // Handle Search Form on POST.
 exports.search = function(req, res) {
     var address, zipcode;
