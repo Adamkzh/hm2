@@ -4,19 +4,17 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Homework 4 Jquery UI</title>
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.1.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <link rel="stylesheet" href="stylesheets/jquery-ui.theme.css">
-    <link rel="stylesheet" href="stylesheets/jquery-ui.structure.css">
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/south-street/jquery-ui.css">
     <style>
         #map {
             width: 1000px; height: 700px;
-            background: #495057;
             background-image: url("/images/rooftop.jpg");
         }
 
         #panel-container {
-            width: 100px; height: 150px;
+            width: 100px; height: 170px;
         }
 
         #panel-image {
@@ -26,7 +24,7 @@
         }
 
         .ui-helper {
-            width: 100px; height: 150px;
+            width: 100px; height: 170px;
         }
     </style>
     <script>
@@ -57,7 +55,6 @@
                 } else {
                     console.log(e.target.value + " not found");
                 }
-                console.log(value);
                 return false;
             }
 
@@ -117,12 +114,10 @@
     </fieldset>
 
 </div>
-<!--<div class="panel background panel-image image-container">-->
-<div>
-    <h3>2.) Drag me to the rooftop image.</h3>
-    <div class="panel background ui-widget-content" id="panel-container" >
-        <image id="panel-image"  src="images/c1.jpg"></image>
-    </div>
+
+<h3>2.) Drag me to the rooftop image.</h3>
+<div class="panel background ui-widget-content" id="panel-container" >
+    <image id="panel-image"  src="images/c1.jpg"></image>
 </div>
 
 
