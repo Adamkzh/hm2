@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
     <% include ../partials/head.ejs %>
-    <% include ../page/dialog.ejs %>
 
 <script src='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css' rel='stylesheet' />
@@ -23,7 +22,7 @@
   #cart h4 { line-height: 16px; margin: 0 0 0.4em; }
   #cart h4 .ui-icon { float: left; }
   #cart .gallery h5 { display: none; }
-
+  #opener {color: white; background: darkgreen;}
   </style>
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -139,6 +138,28 @@
     });
   } );
   </script>
+
+  <script>
+    // Script for dialog
+    $( function() {
+
+      $( "#dialog" ).dialog({
+        autoOpen: false,
+        show: {
+          effect: "blind",
+          duration: 1000
+        },
+        hide: {
+          effect: "fold",
+          duration: 1000
+        }
+      });
+
+      $( "#opener" ).on( "click", function() {
+        $( "#dialog" ).dialog( "open" );
+      });
+    } );
+  </script>
 </head>
 <body>
 <header>
@@ -149,7 +170,20 @@
 <main class="container">
         <% include ../page/tab.ejs %>
     </main>
-  <p></p>     
+
+<!--Dialog Begin -->
+
+
+
+<h3>Choose the product and add to shopping cart.</h3>
+<div id="dialog" title="Arranger Panel">
+  <p>Click the bottom left corner of the product to view larger images.</p>
+</div>
+<button id="opener">View Tips</button>
+
+<!--Dialog END-->
+
+
 <div class="ui-widget ui-helper-clearfix">
  
 <ul id="gallery" class="gallery ui-helper-reset ui-helper-clearfix">
