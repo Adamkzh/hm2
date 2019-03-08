@@ -1,5 +1,5 @@
 
-# hm 4
+# hw 4
 
 1. Follow the instruction to run the app
 2. The content for hm 4 is located at `http://localhost:3000/map`    
@@ -7,7 +7,7 @@
 ### How to run the code?
 
 ```sh
-cd hm4
+cd hw4
 npm install
 npm start
 ```
